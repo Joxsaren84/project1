@@ -2,9 +2,7 @@ package ru.joxaren.project1.config;
 
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+import javax.servlet.*;
 
 public class MySpringMvcDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
@@ -31,4 +29,5 @@ public class MySpringMvcDispatcherServletInitializer extends AbstractAnnotationC
     protected String[] getServletMappings() {
         return new String[] {"/"};
     }
+
 }
