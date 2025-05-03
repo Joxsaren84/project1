@@ -45,10 +45,13 @@ public class BooksController {
         Book book = bookDao.show(id);
         model.addAttribute("book", book);
         model.addAttribute("people", personDao.index());
-        if(book.getBookReaderId() == null)
+        if(book.getBookReaderId() == null) {
             return "books/show-free";
-        else
+        }else {
+            person = bookDao.getReader(id);
+            model.addAttribute("reader", person);
             return "books/show-not-free";
+        }
     }
 
     @PatchMapping("/set-reader")
@@ -73,6 +76,12 @@ public class BooksController {
     @PatchMapping("/{id}")
     public String updateBook(@PathVariable("id") int id, @ModelAttribute("book") Book book, Model model){
         bookDao.updateBook(id, book);
+        return "redirect:/books/" + id;
+    }
+
+    @GetMapping("/{id}/reset-reader")
+    public String resetReader(@PathVariable("id") int id){
+        bookDao.setReader(id, null);
         return "redirect:/books/" + id;
     }
 }

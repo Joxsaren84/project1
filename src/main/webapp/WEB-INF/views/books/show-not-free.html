@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Show book</title>
 </head>
 <body>
-45645456456456456
+    <p th:text="${book.getBookName() + ', ' + book.getBookAuthor() + ', ' + book.getBookYear() + ', '}"/>
+    <p th:text="${'Now book reading: ' + reader.getPersonName()}">
+        <form method="GET" th:action="@{/books/{id}/reset-reader(id = ${book.getBookId()})}">
+            <input type="submit" value="Set free">
+        </form>
+    </p>
+    <hr width="100%;" color="red" size="5">
+    <form method="GET" th:action="@{/books/{id}/edit/(id=${book.getBookId()})}">
+        <input type="submit" value="edit">
+    </form>
+    <br>
+    <form th:method="DELETE" th:action="@{/books/{id}/(id=${book.getBookId()})}">
+        <input type="submit" value="delete">
+    </form>
+    <br>
+    <a href="/books">List of books</a>
+
 </body>
 </html>

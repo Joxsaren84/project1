@@ -9,19 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9f929a25-56e1-47a1-9acd-b60f64fef907" name="Changes" comment="Add Model Person, PersonDao, PeopleController with show people and create new person.">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/joxaren/project1/controllers/BooksController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/joxaren/project1/dao/BookDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/joxaren/project1/dao/BookMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/joxaren/project1/models/Book.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/books/edit.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/books/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/books/new.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/books/show-free.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/books/show-not-free.html" afterDir="false" />
+    <list default="true" id="9f929a25-56e1-47a1-9acd-b60f64fef907" name="Changes" comment="fix column name in DB and in the classes and views. Add features">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/people/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/people/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/joxaren/project1/controllers/BooksController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/joxaren/project1/controllers/BooksController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/joxaren/project1/dao/BookDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/joxaren/project1/dao/BookDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/books/show-not-free.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/books/show-not-free.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -267,7 +259,8 @@
       <workItem from="1745032341775" duration="4672000" />
       <workItem from="1745119881873" duration="12897000" />
       <workItem from="1745726398434" duration="11970000" />
-      <workItem from="1745838634252" duration="709000" />
+      <workItem from="1745838634252" duration="1159000" />
+      <workItem from="1746234433386" duration="7043000" />
     </task>
     <task id="LOCAL-00001" summary="Empty project with test controller and test dao">
       <created>1744174028628</created>
@@ -283,7 +276,14 @@
       <option name="project" value="LOCAL" />
       <updated>1744258581366</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fix column name in DB and in the classes and views. Add features">
+      <created>1745839643831</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1745839643831</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -303,6 +303,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Empty project with test controller and test dao" />
     <MESSAGE value="Add Model Person, PersonDao, PeopleController with show people and create new person." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Model Person, PersonDao, PeopleController with show people and create new person." />
+    <MESSAGE value="fix column name in DB and in the classes and views. Add features" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix column name in DB and in the classes and views. Add features" />
   </component>
 </project>

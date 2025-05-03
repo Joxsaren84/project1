@@ -4,6 +4,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.joxaren.project1.models.Book;
+import ru.joxaren.project1.models.Person;
 
 import java.util.List;
 
@@ -37,9 +38,15 @@ public class BookDao {
         return jdbcTemplate.query(sql, new Object[]{id}, new BeanPropertyRowMapper<>(Book.class)).stream().findAny().orElse(null);
     }
 
-    public void setReader(int bookId, int personId){
+    public void setReader(int bookId, Integer personId){
         String sql = "UPDATE book SET book_reader_id = ? WHERE book_id = ?";
         jdbcTemplate.update(sql, personId, bookId);
+    }
+
+    public Person getReader(int bookId){
+        String sql = "SELECT * FROM person WHERE person_id = " +
+                "(SELECT book_reader_id FROM book WHERE book_id = ?)";
+        return jdbcTemplate.query(sql, new Object[]{bookId}, new BeanPropertyRowMapper<>(Person.class)).stream().findAny().orElse(null);
     }
 
     public void deleteBook(int bookId){
