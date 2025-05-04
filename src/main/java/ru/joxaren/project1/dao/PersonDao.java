@@ -26,4 +26,19 @@ public class PersonDao {
         String sql = "INSERT INTO person (person_name, person_born_year) VALUES (?, ?)";
         jdbcTemplate.update(sql, person.getPersonName(), person.getPersonBornYear());
     }
+
+    public Person getPerson(int id){
+        String sql = "SELECT * FROM person WHERE person_id = ?";
+        return jdbcTemplate.query(sql, new Object[]{id}, new BeanPropertyRowMapper<>(Person.class)).stream().findAny().orElse(null);
+    }
+
+    public void personUpdate(int id, Person person){
+        String sql = "UPDATE person SET person_name = ?, person_born_year = ? WHERE person_id = ?";
+        jdbcTemplate.update(sql, person.getPersonName(), person.getPersonBornYear(), id);
+    }
+
+    public void deletePerson(int id){
+        String sql="DELETE FROM person WHERE person_id = ?";
+        jdbcTemplate.update(sql, id);
+    }
 }

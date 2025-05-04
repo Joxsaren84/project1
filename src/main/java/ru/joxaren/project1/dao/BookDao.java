@@ -58,4 +58,14 @@ public class BookDao {
         String sql = "UPDATE book SET book_name = ?, book_author = ?, book_year = ? WHERE book_id = ?";
         jdbcTemplate.update(sql, book.getBookName(), book.getBookAuthor(), book.getBookYear(), id);
     }
+
+    public List<Book> getReadersBooks(int readerId){
+        String sql = "SELECT * FROM book WHERE book_reader_id = ?";
+        return jdbcTemplate.query(sql, new Object[]{readerId}, new BeanPropertyRowMapper<>(Book.class));
+    }
+
+    public void setNull(Integer personId){
+        String sql = "UPDATE book SET book_reader_id = ? WHERE book_reader_id = ?";
+        jdbcTemplate.update(sql, null, personId);
+    }
 }
