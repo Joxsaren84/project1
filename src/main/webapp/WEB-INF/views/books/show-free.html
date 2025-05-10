@@ -24,7 +24,7 @@
 <hr width="100%;" color="red" size="5">
 
 
-<form th:method="GET" th:action="@{/books/{id}/edit(id=${book.getBookId()})}">
+<form th:method="PATCH" th:action="@{/books/{id}/edit(id=${book.getBookId()})}">
     <input type="submit" value="edit">
 </form>
 </br>

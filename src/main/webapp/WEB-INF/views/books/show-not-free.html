@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Show book</title>
@@ -12,7 +12,7 @@
         </form>
     </p>
     <hr width="100%;" color="red" size="5">
-    <form method="GET" th:action="@{/books/{id}/edit/(id=${book.getBookId()})}">
+    <form th:method="PATCH" th:action="@{/books/{id}/edit(id=${book.getBookId()})}">
         <input type="submit" value="edit">
     </form>
     <br>

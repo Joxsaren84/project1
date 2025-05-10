@@ -4,23 +4,29 @@ package ru.joxaren.project1.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.joxaren.project1.dao.BookDao;
-import ru.joxaren.project1.dao.PersonDao;
+import ru.joxaren.project1.dao.BookDAO;
+import ru.joxaren.project1.dao.PersonDAO;
 import ru.joxaren.project1.models.Book;
 import ru.joxaren.project1.models.Person;
+import ru.joxaren.project1.util.BookValidator;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/books")
 public class BooksController {
 
-    private final BookDao bookDao;
-    private final PersonDao personDao;
+    private final BookDAO bookDao;
+    private final PersonDAO personDao;
 
+    private final BookValidator bookValidator;
     @Autowired
-    public BooksController(BookDao bookDao, PersonDao personDao) {
+    public BooksController(BookDAO bookDao, PersonDAO personDao, BookValidator bookValidator) {
         this.bookDao = bookDao;
         this.personDao = personDao;
+        this.bookValidator = bookValidator;
     }
 
     @GetMapping()
@@ -35,7 +41,13 @@ public class BooksController {
     }
 
     @PostMapping()
-    public String createBook(@ModelAttribute("book") Book book){
+    public String createBook(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult){
+
+        bookValidator.validate(book, bindingResult);
+
+        if(bindingResult.hasErrors())
+            return "books/new";
+
         bookDao.save(book);
         return "redirect:/books";
     }
@@ -67,14 +79,21 @@ public class BooksController {
         return "redirect:/books";
     }
 
-    @GetMapping("/{id}/edit")
+    @PatchMapping("/{id}/edit")
     public String editBook(@PathVariable("id") int id, Model model){
         model.addAttribute("book", bookDao.show(id));
         return "books/edit";
     }
 
     @PatchMapping("/{id}")
-    public String updateBook(@PathVariable("id") int id, @ModelAttribute("book") Book book, Model model){
+    public String updateBook(@PathVariable("id") int id, @ModelAttribute("book") @Valid Book book,
+                             BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()) {
+            book.setBookId(id);
+            return "books/edit";
+        }
+
         bookDao.updateBook(id, book);
         return "redirect:/books/" + id;
     }

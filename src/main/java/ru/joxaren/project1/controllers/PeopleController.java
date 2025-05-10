@@ -3,25 +3,31 @@ package ru.joxaren.project1.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.joxaren.project1.dao.BookDao;
-import ru.joxaren.project1.dao.PersonDao;
+import ru.joxaren.project1.dao.BookDAO;
+import ru.joxaren.project1.dao.PersonDAO;
 import ru.joxaren.project1.models.Book;
 import ru.joxaren.project1.models.Person;
+import ru.joxaren.project1.util.PersonValidator;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
 
-    private final PersonDao personDao;
-    private final BookDao bookDao;
+    private final PersonDAO personDao;
+    private final BookDAO bookDao;
+
+    private final PersonValidator personValidator;
 
     @Autowired
-    public PeopleController(PersonDao personDao, BookDao bookDao) {
+    public PeopleController(PersonDAO personDao, BookDAO bookDao, PersonValidator personValidator) {
         this.personDao = personDao;
         this.bookDao = bookDao;
+        this.personValidator = personValidator;
     }
 
     @GetMapping()
@@ -36,7 +42,14 @@ public class PeopleController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("person") Person person){
+    public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult){
+
+        personValidator.validate(person, bindingResult);
+
+        if (bindingResult.hasErrors()){
+            return "people/new";
+        }
+
         personDao.save(person);
         return "redirect:/people";
     }
@@ -63,7 +76,13 @@ public class PeopleController {
     }
 
     @PatchMapping("{id}")
-    public String updatePerson(@PathVariable("id") int id, @ModelAttribute("person") Person person, Model model){
+    public String updatePerson(@PathVariable("id") int id, @ModelAttribute("person") @Valid Person person,
+                               BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            person.setPersonId(id);
+            return "/people/edit";
+        }
+
         personDao.personUpdate(id, person);
         return "redirect:/people/" + id;
     }

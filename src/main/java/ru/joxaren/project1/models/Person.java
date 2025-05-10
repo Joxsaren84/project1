@@ -1,9 +1,15 @@
 package ru.joxaren.project1.models;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+
 public class Person {
 
     private int personId;
+    @NotEmpty(message = "Name can't be empty")
     private String personName;
+    @Min(value = 1921, message = "Person can't be born early 1921")
     private int personBornYear;
 
     public Person(int personId, String personName, int personBornYear) {

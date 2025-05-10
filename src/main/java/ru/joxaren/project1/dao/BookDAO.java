@@ -9,11 +9,11 @@ import ru.joxaren.project1.models.Person;
 import java.util.List;
 
 @Component
-public class BookDao {
+public class BookDAO {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public BookDao(JdbcTemplate jdbcTemplate) {
+    public BookDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -36,6 +36,11 @@ public class BookDao {
     public Book show(int id){
         String sql = "SELECT * FROM book WHERE book_id = ?";
         return jdbcTemplate.query(sql, new Object[]{id}, new BeanPropertyRowMapper<>(Book.class)).stream().findAny().orElse(null);
+    }
+
+    public Book show(String bookName){
+        String sql = "SELECT * FROM book WHERE book_name = ?";
+        return jdbcTemplate.query(sql, new Object[]{bookName}, new BeanPropertyRowMapper<>(Book.class)).stream().findAny().orElse(null);
     }
 
     public void setReader(int bookId, Integer personId){

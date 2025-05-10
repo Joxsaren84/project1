@@ -7,9 +7,13 @@
 <body>
     <form th:method="PATCH" th:action="@{/people/{id}(id=${person.getPersonId()})}" th:object="${person}">
         <label for="personName">Peson name:</label><br>
-        <input type="text" th:field="*{PersonName}" id="personName"><br>
+        <input type="text" th:field="*{PersonName}" id="personName">
+        <div style="color: red" th:if="${#fields.hasErrors('personName')}" th:errors="*{personName}">Error</div>
+        <br>
         <label for="personBornYear">Peson born year:</label><br>
-        <input type="text" th:field="*{PersonBornYear}" id="personBornYear"><br><br>
+        <input type="text" th:field="*{PersonBornYear}" id="personBornYear">
+        <div style="color: red" th:if="${#fields.hasErrors('personBornYear')}" th:errors="*{personBornYear}">Error</div>
+        <br><br>
         <input type="submit" value="update">
     </form>
 </body>

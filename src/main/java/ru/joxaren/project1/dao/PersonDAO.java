@@ -5,15 +5,14 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.joxaren.project1.models.Person;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class PersonDao {
+public class PersonDAO {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public PersonDao(JdbcTemplate jdbcTemplate) {
+    public PersonDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -30,6 +29,11 @@ public class PersonDao {
     public Person getPerson(int id){
         String sql = "SELECT * FROM person WHERE person_id = ?";
         return jdbcTemplate.query(sql, new Object[]{id}, new BeanPropertyRowMapper<>(Person.class)).stream().findAny().orElse(null);
+    }
+
+    public Person getPerson(String personName){
+        String sql = "SELECT * FROM person WHERE person_name = ?";
+        return jdbcTemplate.query(sql, new Object[]{personName}, new BeanPropertyRowMapper<>(Person.class)).stream().findAny().orElse(null);
     }
 
     public void personUpdate(int id, Person person){
