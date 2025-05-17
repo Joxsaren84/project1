@@ -7,6 +7,7 @@
 <body>
 <p th:text="${book.getBookName()} + ', ' + ${book.getBookAuthor()} + ', ' + ${book.getBookYear()}"/>
 
+<div th:if="${(book.getBookReaderId() == null)}">
 <p text="This book is free. How will be read it?">
 
 <form th:method="PATCH" th:action="@{/books/set-reader}">
@@ -20,6 +21,15 @@
     <input type="hidden" th:object="${book}" th:field="*{bookId}" th:value="${book.getBookId()}">
     <input type="submit" value="Set">
 </form>
+</div>
+
+<div th:if="${(book.getBookReaderId() != null)}">
+    <p th:text="${'Now book reading: ' + reader.getPersonName()}">
+    <form method="GET" th:action="@{/books/{id}/reset-reader(id = ${book.getBookId()})}">
+        <input type="submit" value="Set free">
+    </form>
+    </p>
+</div>
 
 <hr width="100%;" color="red" size="5">
 

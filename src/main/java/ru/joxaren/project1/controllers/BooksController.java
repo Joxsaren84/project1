@@ -57,13 +57,10 @@ public class BooksController {
         Book book = bookDao.show(id);
         model.addAttribute("book", book);
         model.addAttribute("people", personDao.index());
-        if(book.getBookReaderId() == null) {
-            return "books/show-free";
-        }else {
-            person = bookDao.getReader(id);
-            model.addAttribute("reader", person);
-            return "books/show-not-free";
-        }
+        person = bookDao.getReader(id);
+        model.addAttribute("reader", person);
+
+        return "books/show";
     }
 
     @PatchMapping("/set-reader")
