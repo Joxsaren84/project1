@@ -58,7 +58,7 @@ public class SpringConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
         dataSource.setDriverClassName(Objects.requireNonNull(environment.getProperty("database.driver")));
@@ -70,7 +70,7 @@ public class SpringConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplate(){
+    public JdbcTemplate jdbcTemplate() {
         return new JdbcTemplate(dataSource());
     }
 }

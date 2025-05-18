@@ -16,33 +16,33 @@ public class PersonDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List <Person> index(){
+    public List<Person> index() {
         String sql = "SELECT * FROM person";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Person.class));
     }
 
-    public void save(Person person){
+    public void save(Person person) {
         String sql = "INSERT INTO person (person_name, person_born_year) VALUES (?, ?)";
         jdbcTemplate.update(sql, person.getPersonName(), person.getPersonBornYear());
     }
 
-    public Person getPerson(int id){
+    public Person getPerson(int id) {
         String sql = "SELECT * FROM person WHERE person_id = ?";
         return jdbcTemplate.query(sql, new Object[]{id}, new BeanPropertyRowMapper<>(Person.class)).stream().findAny().orElse(null);
     }
 
-    public Person getPerson(String personName){
+    public Person getPerson(String personName) {
         String sql = "SELECT * FROM person WHERE person_name = ?";
         return jdbcTemplate.query(sql, new Object[]{personName}, new BeanPropertyRowMapper<>(Person.class)).stream().findAny().orElse(null);
     }
 
-    public void personUpdate(int id, Person person){
+    public void personUpdate(int id, Person person) {
         String sql = "UPDATE person SET person_name = ?, person_born_year = ? WHERE person_id = ?";
         jdbcTemplate.update(sql, person.getPersonName(), person.getPersonBornYear(), id);
     }
 
-    public void deletePerson(int id){
-        String sql="DELETE FROM person WHERE person_id = ?";
+    public void deletePerson(int id) {
+        String sql = "DELETE FROM person WHERE person_id = ?";
         jdbcTemplate.update(sql, id);
     }
 }

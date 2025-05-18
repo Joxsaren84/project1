@@ -22,6 +22,7 @@ public class BooksController {
     private final PersonDAO personDao;
 
     private final BookValidator bookValidator;
+
     @Autowired
     public BooksController(BookDAO bookDao, PersonDAO personDao, BookValidator bookValidator) {
         this.bookDao = bookDao;
@@ -30,22 +31,22 @@ public class BooksController {
     }
 
     @GetMapping()
-    public String index(Model model){
+    public String index(Model model) {
         model.addAttribute("books", bookDao.index());
         return "books/index";
     }
 
     @GetMapping("/new")
-    public String newBook(@ModelAttribute("book") Book book){
+    public String newBook(@ModelAttribute("book") Book book) {
         return "books/new";
     }
 
     @PostMapping()
-    public String createBook(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult){
+    public String createBook(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult) {
 
         bookValidator.validate(book, bindingResult);
 
-        if(bindingResult.hasErrors())
+        if (bindingResult.hasErrors())
             return "books/new";
 
         bookDao.save(book);
@@ -53,7 +54,7 @@ public class BooksController {
     }
 
     @GetMapping("/{id}")
-    public String showBook(@PathVariable("id") int id, Model model, @ModelAttribute("person") Person person){
+    public String showBook(@PathVariable("id") int id, Model model, @ModelAttribute("person") Person person) {
         Book book = bookDao.show(id);
         model.addAttribute("book", book);
         model.addAttribute("people", personDao.index());
@@ -65,28 +66,28 @@ public class BooksController {
 
     @PatchMapping("/set-reader")
     public String setReader(Model model, @ModelAttribute("person") Person person, @ModelAttribute("book")
-                            Book book){
+    Book book) {
         bookDao.setReader(book.getBookId(), person.getPersonId());
         return "redirect:/books/" + book.getBookId();
     }
 
     @DeleteMapping("/{id}")
-    public String deleteBook(@PathVariable("id") int id){
+    public String deleteBook(@PathVariable("id") int id) {
         bookDao.deleteBook(id);
         return "redirect:/books";
     }
 
     @PatchMapping("/{id}/edit")
-    public String editBook(@PathVariable("id") int id, Model model){
+    public String editBook(@PathVariable("id") int id, Model model) {
         model.addAttribute("book", bookDao.show(id));
         return "books/edit";
     }
 
     @PatchMapping("/{id}")
     public String updateBook(@PathVariable("id") int id, @ModelAttribute("book") @Valid Book book,
-                             BindingResult bindingResult){
+                             BindingResult bindingResult) {
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             book.setBookId(id);
             return "books/edit";
         }
@@ -96,7 +97,7 @@ public class BooksController {
     }
 
     @GetMapping("/{id}/reset-reader")
-    public String resetReader(@PathVariable("id") int id){
+    public String resetReader(@PathVariable("id") int id) {
         bookDao.setReader(id, null);
         return "redirect:/books/" + id;
     }

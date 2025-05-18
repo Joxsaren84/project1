@@ -17,7 +17,7 @@ public class TestController {
     }
 
     @GetMapping("/test")
-    public String testPage(Model model){
+    public String testPage(Model model) {
 
         String name = "first id has: " + testDao.testDataBase();
 

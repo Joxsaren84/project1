@@ -8,19 +8,19 @@
 <p th:text="${book.getBookName()} + ', ' + ${book.getBookAuthor()} + ', ' + ${book.getBookYear()}"/>
 
 <div th:if="${(book.getBookReaderId() == null)}">
-<p text="This book is free. How will be read it?">
+    <p text="This book is free. How will be read it?">
 
-<form th:method="PATCH" th:action="@{/books/set-reader}">
-    <label for="person">Choose a person:</label>
-    <select th:object="${person}" th:field="*{personId}" id="person">
-        <option th:each="person : ${people}"
-                th:value = "${person.getPersonId()}"
-                th:text="${person.getPersonName()}">
-        </option>
-    </select>
-    <input type="hidden" th:object="${book}" th:field="*{bookId}" th:value="${book.getBookId()}">
-    <input type="submit" value="Set">
-</form>
+    <form th:method="PATCH" th:action="@{/books/set-reader}">
+        <label for="person">Choose a person:</label>
+        <select th:object="${person}" th:field="*{personId}" id="person">
+            <option th:each="person : ${people}"
+                    th:value="${person.getPersonId()}"
+                    th:text="${person.getPersonName()}">
+            </option>
+        </select>
+        <input type="hidden" th:object="${book}" th:field="*{bookId}" th:value="${book.getBookId()}">
+        <input type="submit" value="Set">
+    </form>
 </div>
 
 <div th:if="${(book.getBookReaderId() != null)}">

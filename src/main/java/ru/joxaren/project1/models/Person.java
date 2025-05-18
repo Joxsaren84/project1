@@ -18,7 +18,8 @@ public class Person {
         this.personBornYear = personBornYear;
     }
 
-    public Person(){}
+    public Person() {
+    }
 
     public int getPersonId() {
         return personId;

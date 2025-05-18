@@ -31,22 +31,22 @@ public class PeopleController {
     }
 
     @GetMapping()
-    public String index(Model model){
+    public String index(Model model) {
         model.addAttribute("people", personDao.index());
         return "people/index";
     }
 
     @GetMapping("/new")
-    public String newPerson(@ModelAttribute("person") Person person){
+    public String newPerson(@ModelAttribute("person") Person person) {
         return "people/new";
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult){
+    public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
 
         personValidator.validate(person, bindingResult);
 
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "people/new";
         }
 
@@ -55,30 +55,24 @@ public class PeopleController {
     }
 
     @GetMapping("/{id}")
-    public String showPerson(@PathVariable("id") int id, @ModelAttribute("book") Book book, Model model){
+    public String showPerson(@PathVariable("id") int id, @ModelAttribute("book") Book book, Model model) {
         Person person = personDao.getPerson(id);
         model.addAttribute("person", person);
-
         List<Book> bookList = bookDao.getReadersBooks(id);
-
-        if(bookList.isEmpty()){
-            return "/people/show-without-books";
-        }else{
-            model.addAttribute("bookList", bookList);
-            return "/people/show-with-books";
-        }
+        model.addAttribute("bookList", bookList);
+        return "/people/show";
     }
 
     @GetMapping("/{id}/edit")
-    public String personEdit(@PathVariable("id") int id, Model model){
+    public String personEdit(@PathVariable("id") int id, Model model) {
         model.addAttribute("person", personDao.getPerson(id));
         return "/people/edit";
     }
 
     @PatchMapping("{id}")
     public String updatePerson(@PathVariable("id") int id, @ModelAttribute("person") @Valid Person person,
-                               BindingResult bindingResult){
-        if (bindingResult.hasErrors()){
+                               BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             person.setPersonId(id);
             return "/people/edit";
         }
@@ -88,7 +82,7 @@ public class PeopleController {
     }
 
     @DeleteMapping("{id}")
-    public String deletePerson(@PathVariable("id") int id){
+    public String deletePerson(@PathVariable("id") int id) {
         bookDao.setNull(id);
         personDao.deletePerson(id);
         return "redirect:/people";

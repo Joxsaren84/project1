@@ -24,7 +24,10 @@ public class Book {
         this.bookReaderId = bookReaderId;
     }
 
-    public Book(){};
+    public Book() {
+    }
+
+    ;
 
     public int getBookId() {
         return bookId;
